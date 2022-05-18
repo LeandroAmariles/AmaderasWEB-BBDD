@@ -1,0 +1,15 @@
+<Context>
+      
+	<Resource name="jdbc/Datos" auth="Container" type="javax.sql.DataSource"
+	
+		maxActive="15" maxIdle="3"  maxWait="5000"
+		
+		username="root" password=""              
+		
+		driverClassName="com.mysql.jdbc.Driver"
+		
+		url="jdbc:mysql://127.0.0.1:3306/amaderas">
+		
+		</Resource>
+
+</Context>
