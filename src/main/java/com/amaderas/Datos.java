@@ -33,6 +33,13 @@ public class Datos {
 	public Date getFecha() {
 		return fecha;
 	}
+	@Override
+	public String toString() {
+		return "Datos [fecha=" + fecha + ", remision=" + remision + ", procedencia=" + procedencia + ", detalle="
+				+ detalle + ", entradas=" + entradas + ", transformacion=" + transformacion + ", egresos=" + egresos
+				+ ", saldos=" + saldos + ", nombreComprador=" + nombreComprador + ", nombreProveedor=" + nombreProveedor
+				+ "]";
+	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}

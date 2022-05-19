@@ -1,8 +1,11 @@
 package com.amaderas;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,13 +27,13 @@ public class ModeloDatos {
 			
 			ResultSet mRs=null;
 			
-			List <Datos> listaRecibidos=null;
+			List <Datos> listaRecibidos=new ArrayList<>();
 			
 			try {
 				
 				miConexion=origenDatos.getConnection();
 				
-				String consulta="SELECT *FROM LIBRO DE OPERACIONES";
+				String consulta="SELECT *FROM LIBRODEOPERACIONES";
 				
 				miSentencia=miConexion.createStatement();
 				
@@ -38,18 +41,23 @@ public class ModeloDatos {
 				
 				while(mRs.next()) {
 					
-					Date Fecha=mRs.getDate("FECHA");
-					int nRemision=mRs.getInt("N REMISION ICA");
-					String procedencia=mRs.getString("PROCEDENCIA");
-					String detalle=mRs.getString("DETALLE");
-					int entradas=mRs.getInt("INGRESOS/ENTRADAS");
-					double transformacion=mRs.getDouble("TRANSFORMACION");
-					String egresos=mRs.getString("EGRESOS/SALIDAS");
-					double saldos=mRs.getDouble("SALDOS");
-					String nComprador=mRs.getString("NOMBRE COMPRADOR");
-					String nProveedor=mRs.getString("NOMBRE DEL PROVEEDOR");
+
+					Date Fecha=mRs.getDate(1);
+					int nRemision=mRs.getInt(2);
+					String procedencia=mRs.getString(3);
+					String detalle=mRs.getString(4);
+					int entradas=mRs.getInt(5);
+					double transformacion=mRs.getDouble(6);
+					String egresos=mRs.getString(7);
+					double saldos=mRs.getDouble(8);
+					String nComprador=mRs.getString(9);
+					String nProveedor=mRs.getString(10);
+					
+				
 					
 					Datos datosRecibidos=new Datos(Fecha,nRemision,procedencia,detalle,entradas,transformacion,egresos,saldos,nComprador,nProveedor);
+					
+					System.out.println(datosRecibidos.toString());
 					
 					listaRecibidos.add(datosRecibidos);
 					
@@ -59,8 +67,38 @@ public class ModeloDatos {
 				
 				
 			}catch(Exception e) {
-				
+				System.out.println("No se pudo conectar");
 			}
 			return listaRecibidos;
+		}
+
+		public void AgregarNuevoRegistro(Datos nuevoRegistro) {
+			// TODO Auto-generated method stub
+			Connection conexionRegistro=null;
+			
+			try {
+				conexionRegistro=origenDatos.getConnection();
+				
+				CallableStatement sentenciaPreparada =conexionRegistro.prepareCall("{call nuevo_registro(?,?,?,?,?,?,?,?,?,?)}");
+				
+				sentenciaPreparada.setDate(1, (java.sql.Date) nuevoRegistro.getFecha());
+				sentenciaPreparada.setInt(2, nuevoRegistro.getRemision());
+				sentenciaPreparada.setString(3, nuevoRegistro.getProcedencia() );
+				sentenciaPreparada.setString(4, nuevoRegistro.getDetalle());
+				sentenciaPreparada.setInt(5, nuevoRegistro.getEntradas());
+				sentenciaPreparada.setDouble(6, nuevoRegistro.getTransformacion());
+				sentenciaPreparada.setString(7, nuevoRegistro.getEgresos());
+				sentenciaPreparada.setDouble(8, nuevoRegistro.getSaldos());
+				sentenciaPreparada.setString(9, nuevoRegistro.getNombreComprador());
+				sentenciaPreparada.setString(10, nuevoRegistro.getNombreProveedor());
+				
+				sentenciaPreparada.execute();
+						
+				
+			}catch(Exception e) {
+				System.out.println("Error al ingresar registro");
+			}
+			
+			
 		}
 }
