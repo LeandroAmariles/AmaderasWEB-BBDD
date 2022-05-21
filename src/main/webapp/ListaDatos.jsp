@@ -48,6 +48,17 @@ margin-left:1500px;
 		</tr>
 		
 	<c:forEach var="tempDatos" items="${lista_datos}">
+	
+	<c:url var="linkActualizar" value="ControladorDatos">
+		<c:param name="registra" value="cargar"></c:param>
+		<c:param name="NRemision"  value="${tempDatos.remision }"></c:param>
+	
+	</c:url>	
+	
+	
+	
+	
+	
 	<tr>
 	<td class="filas"> ${tempDatos.fecha} </td>
 	<td class="filas"> ${tempDatos.remision }</td>
@@ -59,6 +70,7 @@ margin-left:1500px;
 	<td class="filas"> ${tempDatos.saldos }</td>
 	<td class="filas"> ${tempDatos.nombreComprador }</td>
 	<td class="filas"> ${tempDatos.nombreProveedor }</td>
+	<td class="filas"><a href="${linkActualizar}">Actualizar</a>
 	
 	
 	</tr>

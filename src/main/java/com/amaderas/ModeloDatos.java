@@ -76,12 +76,18 @@ public class ModeloDatos {
 			// TODO Auto-generated method stub
 			Connection conexionRegistro=null;
 			
+			PreparedStatement sentenciaPreparada =null;
+			
 			try {
 				conexionRegistro=origenDatos.getConnection();
 				
-				CallableStatement sentenciaPreparada =conexionRegistro.prepareCall("{call nuevo_registro(?,?,?,?,?,?,?,?,?,?)}");
+				String sql="INSERT INTO LIBRODEOPERACIONES(FECHA,NREMISIONICA,PROCEDENCIA,DETALLE,INGRESOSENTRADAS,TRANSFORMACION,EGRESOSSALIDAS,SALDOS,NOMBRECOMPRADOR,NOMBREDELPROVEEDOR) VALUES(?,?,?,?,?,?,?,?,?,? )";
 				
-				sentenciaPreparada.setDate(1, (java.sql.Date) nuevoRegistro.getFecha());
+				sentenciaPreparada=conexionRegistro.prepareStatement(sql);
+				
+				java.util.Date utilDate=nuevoRegistro.getFecha();
+				java.sql.Date fechaConvertida=new java.sql.Date(utilDate.getTime());
+				sentenciaPreparada.setDate(1, fechaConvertida);
 				sentenciaPreparada.setInt(2, nuevoRegistro.getRemision());
 				sentenciaPreparada.setString(3, nuevoRegistro.getProcedencia() );
 				sentenciaPreparada.setString(4, nuevoRegistro.getDetalle());
@@ -98,6 +104,75 @@ public class ModeloDatos {
 			}catch(Exception e) {
 				System.out.println("Error al ingresar registro");
 			}
+			
+			
+		}
+
+		public Datos ObtenerDatos(int nremision) {
+			// TODO Auto-generated method stub
+			
+			Datos registroConsultado=null;
+			
+			Connection miConexion=null;
+			
+			PreparedStatement statement=null;
+			
+			ResultSet mRs=null;
+			
+			try {
+			miConexion=origenDatos.getConnection();
+			
+			String sql="SELECT *FROM LIBRODEOPERACIONES WHERE NREMISIONICA=?";
+			
+			statement=miConexion.prepareStatement(sql);
+			
+			statement.setInt(1, nremision);
+			
+			mRs=statement.executeQuery();
+			
+			if(mRs.next()) {
+				
+				Date fecha=mRs.getDate(1);
+				int Nremision=mRs.getInt(2);
+				String procedencia=mRs.getString(3);
+				String detalle=mRs.getString(4);
+				int ingreso=mRs.getInt(5);
+				double transformacion=mRs.getDouble(6);
+				String egresosSalida=mRs.getString(7);
+				double saldos=mRs.getDouble(8);
+				String nombreComp=mRs.getString(9);
+				String nombreProvee=mRs.getString(10);
+				
+				registroConsultado=new Datos(fecha,Nremision,procedencia,detalle,ingreso,transformacion,egresosSalida,saldos,nombreComp,nombreProvee);
+			}else {
+				
+				throw new Exception("No se ha encontrado el registro con numero de ICA"+ nremision);
+			}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return registroConsultado;
+		}
+
+		public void ActualizarRegistro(Datos datoActualizado) throws Exception{
+			// TODO Auto-generated method stub
+			
+			Connection miConexion=null;
+			
+			PreparedStatement miConsulta=null;
+			
+			miConexion=origenDatos.getConnection();
+			
+			String sql="UPDATE LIBRODEOPERACIONES SET FECHA=?,PROCEDENCIA=?,DETALLE=?, INGRESOSENTRADAS=?,TRANSFORMACION=?,EGRESOSSALIDAS=?,"
+					+ "SALDOS=?, NOMBRECOMPRADOR=?, NOMBREDELPROVEEDOR=? WHERE NREMISIONICA=?";
+			
+			miConsulta=miConexion.prepareStatement(sql);
+			
+			java.util.Date utilDate=datoActualizado.getFecha();
+			java.sql.Date fechaConvertida=new java.sql.Date(utilDate.getTime());
+			miConsulta.setDate(1, fechaConvertida);
 			
 			
 		}

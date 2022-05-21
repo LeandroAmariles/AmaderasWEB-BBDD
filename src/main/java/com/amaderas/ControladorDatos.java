@@ -62,8 +62,48 @@ public class ControladorDatos extends HttpServlet {
 			IngresarRegistro(request, response);
 			break;
 			
+		case("cargar"):
+			try {
+				CargaRegistro(request, response);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+			
+		case("actualizarBBDD"):
+			try {
+				ActualizarRegistro(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
 		
 		}
+		
+		
+	}
+
+	private void CargaRegistro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		int Nremision=Integer.parseInt(request.getParameter("NRemision"));
+		
+		Datos elDato=modeloD.ObtenerDatos(Nremision);
+		
+		request.setAttribute("RegistroActualizar", elDato);
+		
+		RequestDispatcher dispatcher=request.getRequestDispatcher("/ActualizarRegistro.jsp");
+		
+		dispatcher.forward(request, response);
+		
+	}
+
+	private void ActualizarRegistro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		
+		
 		
 		
 	}
