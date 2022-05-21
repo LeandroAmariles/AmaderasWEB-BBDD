@@ -103,7 +103,49 @@ public class ControladorDatos extends HttpServlet {
 	private void ActualizarRegistro(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
+		SimpleDateFormat formatoF=new SimpleDateFormat("YYYY-MM-dd");
+		Date fecha=null;
+		try {
+			fecha=formatoF.parse(request.getParameter("textFecha"));
+		}catch(Exception e) {
+			System.out.println("Fecha nula");
+		}
+		int numeroIca;
+		if(request.getParameter("textRemi")!=null && request.getParameter("textRemi").length()>0) {
+			numeroIca=Integer.parseInt(request.getParameter("textRemi"));
+		}else {
+			numeroIca=0000;
+		}
 		
+		String procedencia=request.getParameter("textProce");
+		String detalle=request.getParameter("textDetalle");
+		int ingresosEntrada;
+		if(request.getParameter("textEntrada")!=null && request.getParameter("textEntrada").length()>0) {
+			ingresosEntrada=Integer.parseInt(request.getParameter("textEntrada"));
+		}else {
+			ingresosEntrada=0;
+		}
+		double transformacion;
+		if(request.getParameter("textTransfo")!=null && request.getParameter("textTransfo").length()>0) {
+			transformacion=Double.parseDouble(request.getParameter("textTransfo"));
+		}else {
+			transformacion=0;
+		}
+		String egresoSalidas=request.getParameter("textEgresos");
+		double saldos;
+		if(request.getParameter("textSaldos")!=null && request.getParameter("textSaldos").length()>0) {
+			saldos=Double.parseDouble(request.getParameter("textSaldos"));
+		}else {
+			saldos=0;
+		}
+		String nombreComprador =request.getParameter("textComprador");
+		String nombreProveedor=request.getParameter("textProveedor");
+		
+		Datos datoActualizado= new Datos(fecha, numeroIca, procedencia, detalle, ingresosEntrada, transformacion, egresoSalidas, saldos,nombreComprador, nombreProveedor);
+		
+		modeloD.ActualizarRegistro(datoActualizado);
+		
+		ConsultarRegistros(request, response);
 		
 		
 	}

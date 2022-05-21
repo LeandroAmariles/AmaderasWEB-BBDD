@@ -9,8 +9,8 @@
 <body>
 <h1 style="text-align: center">Actualizar Registro</h1>
 <form name="forml" method="get"    action="ControladorDatos">
-<input type="hidden" name="instruccion" value="actualizarBBDD">
-<input type="hidden" name="campoRemi" value="${RegistroActualizar.remision }">
+<input type="hidden" name="registra" value="actualizarBBDD">
+<input type="hidden" name="textRemi" value="${RegistroActualizar.remision }">
 
 <table width="540" border="1">
   <tbody>

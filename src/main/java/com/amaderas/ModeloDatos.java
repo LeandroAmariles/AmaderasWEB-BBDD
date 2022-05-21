@@ -173,6 +173,21 @@ public class ModeloDatos {
 			java.util.Date utilDate=datoActualizado.getFecha();
 			java.sql.Date fechaConvertida=new java.sql.Date(utilDate.getTime());
 			miConsulta.setDate(1, fechaConvertida);
+			miConsulta.setString(2, datoActualizado.getProcedencia());
+			
+			miConsulta.setString(3, datoActualizado.getDetalle());
+			miConsulta.setInt(4, datoActualizado.getEntradas());
+			miConsulta.setDouble(5,datoActualizado.getTransformacion());
+			miConsulta.setString(6, datoActualizado.getEgresos());
+			miConsulta.setDouble(7,datoActualizado.getSaldos());
+			miConsulta.setString(8, datoActualizado.getNombreComprador());
+			miConsulta.setString(9, datoActualizado.getNombreProveedor());
+			
+			miConsulta.setInt(10, datoActualizado.getRemision());
+			
+			miConsulta.execute();
+			
+			System.out.println("Actualizado correctamente");
 			
 			
 		}
