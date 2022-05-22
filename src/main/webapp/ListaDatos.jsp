@@ -5,6 +5,7 @@
     
 <!DOCTYPE html>
 <html>
+<!-- #5882FA-->
 <head>
 <meta charset="ISO-8859-1">
 <title>Libro de Operaciones </title>
@@ -13,7 +14,7 @@
 
 .filas{
 	text-alaign:center;
-	background-color: #5882FA;
+	background-color: #eac102;
 
 }
 table{
@@ -22,7 +23,7 @@ table{
 }
 
 #contenedorBoton{
-margin-left:1500px;
+margin-left:1580px;
 
 }
 

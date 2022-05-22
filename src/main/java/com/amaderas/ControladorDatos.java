@@ -201,7 +201,7 @@ public class ControladorDatos extends HttpServlet {
 					miDespachador.forward(request, response);
 					
 				}catch(Exception e) {
-					
+					System.out.println("Fallo al crear lista");
 				}
 	}
 

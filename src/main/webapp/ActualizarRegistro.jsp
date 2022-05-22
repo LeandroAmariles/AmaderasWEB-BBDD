@@ -16,7 +16,7 @@
   <tbody>
     <tr>
       <td width="240">Fecha</td>
-      <td width="284"><input type="text" name="textFecha" id="campoFecha" value="${RegistroActualizar.fecha }"></td>
+      <td width="284"><input type="text" name="textFecha"  id="campoFecha" value="${RegistroActualizar.fecha }"></td>
     </tr>
     <!--  <tr>
       <td>N-Remision ICA</td>
