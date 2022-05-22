@@ -191,4 +191,23 @@ public class ModeloDatos {
 			
 			
 		}
+
+		public Datos BorrarDato(int nremision) throws Exception{
+			// TODO Auto-generated method stub
+			
+			Connection miConexion=null;
+			PreparedStatement consulta=null;
+			
+			miConexion=origenDatos.getConnection();
+			
+			String sql="DELETE FROM LIBRODEOPERACIONES WHERE NREMISIONICA=? ";
+			
+			consulta=miConexion.prepareStatement(sql);
+			
+			consulta.setInt(1, nremision);
+			
+			consulta.execute();
+		
+			return null;
+		}
 }

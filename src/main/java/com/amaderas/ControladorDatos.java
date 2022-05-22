@@ -79,10 +79,29 @@ public class ControladorDatos extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case("delete"):
+			BorrarRegistro(request, response);
+		
 			
 		
 		}
 		
+		
+	}
+
+	private void BorrarRegistro(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		int Nremision=Integer.parseInt(request.getParameter("NRemision"));
+		
+		try {
+			Datos datoEliminar=modeloD.BorrarDato(Nremision);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("No se pudo borrar el registro");
+			
+		}
+		ConsultarRegistros(request, response);	
 		
 	}
 

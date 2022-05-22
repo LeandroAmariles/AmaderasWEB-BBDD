@@ -54,6 +54,13 @@ margin-left:1580px;
 		<c:param name="registra" value="cargar"></c:param>
 		<c:param name="NRemision"  value="${tempDatos.remision }"></c:param>
 	
+	</c:url>
+	
+	<c:url var="linkDelete" value="ControladorDatos">
+		<c:param name="registra" value="delete"></c:param>
+		<c:param name="NRemision" value="${tempDatos.remision }"></c:param>
+	
+	
 	</c:url>	
 	
 	
@@ -71,7 +78,7 @@ margin-left:1580px;
 	<td class="filas"> ${tempDatos.saldos }</td>
 	<td class="filas"> ${tempDatos.nombreComprador }</td>
 	<td class="filas"> ${tempDatos.nombreProveedor }</td>
-	<td class="filas"><a href="${linkActualizar}">Actualizar</a>
+	<td class="filas"><a href="${linkActualizar}">Actualizar</a><a href="${linkDelete }">Borrar</a>
 	
 	
 	</tr>
